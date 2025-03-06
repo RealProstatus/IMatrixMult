@@ -11,6 +11,8 @@ using namespace std;
 int main() {
 	srand(time(NULL));
 
+	mkl_set_num_threads(MKL_Get_Max_Threads());
+
 	double* A, * B, * C;
 	double alpha = 1.0;
 	double betta = 0.0;
