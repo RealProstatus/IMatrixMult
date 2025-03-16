@@ -2,6 +2,7 @@
 #include<random>
 #include<chrono>
 #include<mkl.h>
+#include<omp.h>
 #include<stdlib.h>
 #include<time.h>
 #include<cmath>
@@ -11,7 +12,8 @@ using namespace std;
 int main() {
 	srand(time(NULL));
 
-	mkl_set_num_threads(MKL_Get_Max_Threads());
+	//mkl_set_num_threads(MKL_Get_Max_Threads());
+	mkl_set_num_threads(1);
 
 	double* A, * B, * C;
 	double alpha = 1.0;
@@ -33,36 +35,21 @@ int main() {
 			}
 		}
 
+		//auto start = omp_get_wtime();
 		auto start = chrono::high_resolution_clock::now();
 		cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, block_size, block_size, block_size, alpha, A, block_size, B, block_size, betta, C, block_size);
 		auto stop = chrono::high_resolution_clock::now();
+		auto res = chrono::duration_cast<chrono::milliseconds>(stop - start);
+		//auto stop = omp_get_wtime();
 
-		auto res = chrono::duration_cast<chrono::microseconds>(stop - start);
+		//auto res = stop - start;
 		cout << "matrix_size = " << block_size << endl;
-		cout << res.count() / 1e6 << " sec" << endl;
-		cout << (2 * pow(block_size, 3)) / (1e3 * res.count()) << " GFLOPS"<< endl;
+		cout << res.count() << " sec" << endl;
+		cout << (2 * pow(block_size, 3)) / (res.count() * 1.0e6) << " GFLOPS" << endl;
 		cout << "__________________________________________________________" << endl;
 
 		mkl_free(A); mkl_free(B); mkl_free(C);
 	}
 	
-
-	/*chrono::duration<float> results[NTIMES];
-
-	for (int i = 0; i < NTIMES; i++) {
-		double *A, *B,*C;
-		allocMatrix(&A); allocMatrix(&B); allocMatrix(&C);
-		fillMatrix(&A); fillMatrix(&B);
-
-		auto start = chrono::high_resolution_clock::now();
-		mult(A, B, C);
-		auto stop = chrono::high_resolution_clock::now();
-		results[i] = stop - start;
-	}*/
-	/*double* a;
-	
-	a = new double* [MATRIX_SIZE];
-	for (int i = 0; i < MATRIX_SIZE; i++) a[i] = new double[MATRIX_SIZE];
-	fillMatrix(a);
-	cout << a[0][3];*/
+	return 0;
 }
