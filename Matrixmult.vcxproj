@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>Intel C++ Compiler 2024</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <UseInteloneMKL>Sequential</UseInteloneMKL>
+    <UseInteloneMKL>Parallel</UseInteloneMKL>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -107,7 +107,7 @@
       <ConformanceMode>true</ConformanceMode>
       <Optimization>MaxSpeedHighLevel</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalOptions>-O3 -march=native /Qiopenmp -Qmkl=sequential %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-O3 -march=native -mtune=native /Qiopenmp %(AdditionalOptions)</AdditionalOptions>
       <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <Link>
