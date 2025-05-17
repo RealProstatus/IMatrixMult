@@ -105,9 +105,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <Optimization>MaxSpeedHighLevel</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalOptions>-O3 -march=native -mtune=native /Qiopenmp %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-march=native -mtune=native -g %(AdditionalOptions)</AdditionalOptions>
       <OpenMP>GenerateParallelCode</OpenMP>
     </ClCompile>
     <Link>
