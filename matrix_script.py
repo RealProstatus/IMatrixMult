@@ -20,7 +20,7 @@ plt.xlabel("Total Data Size (MB)", fontsize=18)
 plt.ylabel("Performance (GFLOPS) / Bandwidth (GB/s)", fontsize=18)
 plt.title("Matrix Multiplication Performance vs Data Size", fontsize=18)
 plt.grid(True, which="both", ls="--", linewidth=0.5)
-plt.legend(fontsize=14)
+plt.legend(fontsize=18)
 
 plt.xscale("log")
 plt.yscale("log")
